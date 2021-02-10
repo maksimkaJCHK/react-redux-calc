@@ -1,0 +1,72 @@
+.calc {
+  // Цвет цифр калькулятора (обычный, ховер, нажатый)
+  $nubmBG: #4caf50;
+  $nubmBG-hover: #388e3c;
+  $nubmBG-active: #2e7d32;
+  // Цвет действий калькулятора - умножение, деление вычитание (обычный, ховер, нажатый)
+  $signBG: #ff9800;
+  $signBG-hover: #fb8c00;
+  $signBG-active: #f57c00;
+  // Цвет служебных кнопок калькулятора - сброс, проценты, поменять знак (обычный, ховер, нажатый)
+  $servicesBG: #ff5722;
+  $servicesBG-hover: #e64a19;
+  $servicesBG-active: #bf360c;
+
+  max-width: 400px;
+  margin: 30px auto;
+  border-radius: 7px;
+  overflow: hidden;
+  font-size: 20px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12), 0 1px 5px 0 rgba(0, 0, 0, .2);
+  .row {
+    margin: 0;
+    & > .col {
+      padding: 0;
+    }
+  }
+  .btn {
+    height: 70px;
+    font-size: 20px;
+  }
+  .numb {
+    background-color: $nubmBG;
+    &:hover {
+      background-color: $nubmBG-hover
+    }
+    &:active {
+      background-color: $nubmBG-active;
+    }
+  }
+  .sign {
+    background-color: $signBG;
+    &:hover {
+      background-color: $signBG-hover
+    }
+    &:active {
+      background-color: $signBG-active;
+    }
+  }
+  .services {
+    background-color: $servicesBG;
+    &:hover {
+      background-color: $servicesBG-hover;
+    }
+    &:active {
+      background-color: $servicesBG-active;
+    }
+  }
+  &-input {
+    padding: 15px;
+    text-align: right;
+    background-color: #fff;
+  }
+  &-disp {
+    color: #8E8E8E;
+    font-size: 22px;
+    min-height: 35px;
+  }
+  &-text {
+    font-size: 32px;
+    min-height: 50px;
+  }
+}

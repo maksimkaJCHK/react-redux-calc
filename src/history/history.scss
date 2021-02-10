@@ -1,0 +1,17 @@
+.history {
+  max-width: 400px;
+  margin: 20px auto;
+  h3 {
+    text-align: center;
+  }
+  &-actions {
+    text-align: center;
+    &-item {
+      margin: 10px 0;
+      text-align: left;
+    }
+  }
+  .alarm {
+    color: #ff1744;
+  }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React-redux-calc</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:400,500|Material+Icons">
+</head>
+<body>
+  <div class = 'container'>
+    <div id = "app"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDnX_9e5ost5H5U-DvMldLPPFmndUB8azg",
+      authDomain: "calcaction.firebaseapp.com",
+      databaseURL: "https://calcaction.firebaseio.com",
+      projectId: "calcaction",
+      storageBucket: "calcaction.appspot.com",
+      messagingSenderId: "217550361632",
+      appId: "1:217550361632:web:ac694694ae412634975845",
+      measurementId: "G-NNGKYC21WV"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script src = "js/main.js"></script>
+</body>
+</html>
