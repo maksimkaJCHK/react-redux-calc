@@ -5,7 +5,7 @@ import Services from './services';
 import Sign from './sign';
 import './calc.scss';
 
-const Calc = (props) => {
+const Calc = () => {
   return (
     <div className = 'calc' >
       <Input />

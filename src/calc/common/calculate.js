@@ -2,7 +2,7 @@ const calculate = (calcText, calcDisplay, calcSign) => {
   let calcVal;
 
   if(calcText < 0 && calcSign == '-') {
-    calcVal = eval(Number(calcDisplay) + '+' + Number(Math.abs(calcText)));
+    calcVal = eval(Number(calcDisplay) + '+' + Math.abs(Number(calcText)));
   } else {
     calcVal = eval(Number(calcDisplay) + '' + calcSign + '' + Number(calcText));
   }
