@@ -1,11 +1,11 @@
-import React from 'react';
-import Input from './input';
-import Numb from './numb';
-import Services from './services';
-import Sign from './sign';
+import * as React from 'react';
+import Input from './input/';
+import Numb from './numb/';
+import Services from './services/';
+import Sign from './sign/';
 import './calc.scss';
 
-const Calc = (props) => {
+const Calc: React.FC = () => {
   return (
     <div className = 'calc' >
       <Input />

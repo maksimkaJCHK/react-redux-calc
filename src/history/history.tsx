@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Preloader from './components/preloader.jsx';
-import HistoryItems from './components/historyItems.jsx';
+import * as React from 'react';
+import { useTypeSelector } from '../types/appReducer';
+import Preloader from './components/preloader';
+import HistoryItems from './components/historyItems';
 import './history.scss';
 
-const History = () => {
-  let { load, items, error } = useSelector(state => state.HistoryReducer);
+const History: React.FC = () => {
+  let { load, error, items } = useTypeSelector(state => state.HistoryReducer);
 
   return (
     <div className = 'history'>

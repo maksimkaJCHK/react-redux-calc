@@ -1,16 +1,16 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
-import { CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from '../store/const';
+import actionsConst from '../store/const';
 import getHistory from '../api/getHistory';
 import calculate from '../calc/common/calculate';
 import setParam from '../api/setParam';
 import { addHistoryItem, historyLoad, calcFunc, calcSignChange } from '../store/actions';
 
-function* mixinSetParam(text, display, sign, result) {
+function* mixinSetParam(text: string, display: string, sign: string, result: string) {
   let data = yield call(setParam, text, display, sign, result);
   yield put(addHistoryItem(data));
 }
 
-function* mixinCalculate(text, display, sign, error) {
+function* mixinCalculate(text: string, display: string, sign: string, error: boolean) {
   if(error) {
     let calcVal = calculate(text, display, sign);
     yield put(calcFunc(calcVal));
@@ -22,7 +22,7 @@ function* mixinCalculate(text, display, sign, error) {
   }
 }
 
-function* mixinCalculateSign(text, display, sign, actionSign, error) {
+function* mixinCalculateSign(text: string, display: string, sign: string, actionSign: string, error: boolean) {
   if(error) {
     let result = calculate(text, display, sign);
     yield put(calcSignChange(result, actionSign));
@@ -65,13 +65,13 @@ function* calculateInterestS() {
   let { error } = yield select(state => state.HistoryReducer);
 
   let calcProc = (calcDisplay/100) * calcText;
-  yield mixinCalculate(calcProc, calcDisplay, calcSign, error);
+  yield mixinCalculate(String(calcProc), calcDisplay, calcSign, error);
 }
 
 function* watchCalculate() {
-  yield takeLatest(CALCULATE_ACTION_CHANGE, calculateSignS);
-  yield takeLatest(CALCULATE_SIGN, calculateS);
-  yield takeLatest(CALCULATE_INTEREST, calculateInterestS);
+  yield takeLatest(actionsConst.CALCULATE_ACTION_CHANGE, calculateSignS);
+  yield takeLatest(actionsConst.CALCULATE_SIGN, calculateS);
+  yield takeLatest(actionsConst.CALCULATE_INTEREST, calculateInterestS);
 }
 
 export default function* calcSaga() {

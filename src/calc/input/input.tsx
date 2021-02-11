@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import * as React from 'react';
+import { useTypeSelector } from '../../types/appReducer';
 
-const Input = () => {
-  let { calcText, calcSign, calcDisplay, result, nullProc } = useSelector(state => state.CalcReducer);
+const Input: React.FC = () => {
+  let { calcText, calcSign, calcDisplay, result, nullProc } = useTypeSelector((state) => state.CalcReducer);
 
   return (
     <div className = 'calc-input'>

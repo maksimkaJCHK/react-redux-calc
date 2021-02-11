@@ -1,9 +1,9 @@
-const paths = require('./paths')
+const paths = require('./services/paths')
 
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
-const services = require('./webpack.services.js')
+const common = require('./services/webpack.common.js')
+const services = require('./services/webpack.services.js')
 
 module.exports = merge(common, services, {
   mode: 'development',
@@ -12,7 +12,7 @@ module.exports = merge(common, services, {
     historyApiFallback: true,
     contentBase: paths.public,
     open: true,
-    compress: false,
+    compress: true,
     hot: true,
     port: 8080,
     publicPath: '/js/'

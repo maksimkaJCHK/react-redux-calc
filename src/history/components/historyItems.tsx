@@ -1,6 +1,7 @@
-import React from 'react';
+import * as React from 'react';
+import { IHistoryItemsProps } from '../../types/history';
 
-const HistoryItems = (props) => {
+const HistoryItems = (props: IHistoryItemsProps) => {
 
   return (
     <>

@@ -1,10 +1,11 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypeSelector } from '../../types/appReducer';
 import { resetCalcText, resetCalcDisplay, changeInputText, resetResult, nullProc, calculateInterest } from '../../store/actions';
 
-const Services = () => {
+const Services: React.FC = () => {
   const dispatch = useDispatch();
-  let { calcText, calcDisplay, result, calcSign } = useSelector(state => state.CalcReducer);
+  let { calcText, calcDisplay, result, calcSign } = useTypeSelector(state => state.CalcReducer);
 
   const onResetInput = () => {
     if(calcText != '0') {
@@ -24,8 +25,8 @@ const Services = () => {
     if(calcText == '0') {
       return false;
     }
-    if(calcText < 0) {
-      calcText = Math.abs(calcText);
+    if(Number(calcText) < 0) {
+      calcText = String(Math.abs(Number(calcText)));
     } else {
       calcText = '-' + calcText;
     }

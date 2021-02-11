@@ -1,29 +1,10 @@
-const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
+const { merge } = require('webpack-merge');
+const common = require('./services/webpack.common.js');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin')
+const webpackCommonProd = require('./services/webpack.common.prod.js');
 
-module.exports = merge(common, {
-  mode: 'production',
-  devtool: false,
-  optimization: {
-    minimize: true,
-    usedExports: true,
-    minimizer: [new TerserPlugin({
-      test: /\.js(\?.*)?$/i,
-      parallel: true,
-      extractComments: true,
-      terserOptions: {
-        output: {
-          comments: false,
-        },
-        compress: {
-          drop_console: true,
-        },
-      }
-    })],
-  },
+module.exports = merge(common, webpackCommonProd, {
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
@@ -31,6 +12,11 @@ module.exports = merge(common, {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /(node_modules)/,
+        loader: "ts-loader",
+      },
       {
         test: /\.js|.jsx?$/,
         exclude: /(node_modules)/,
@@ -58,6 +44,12 @@ module.exports = merge(common, {
             loader: "postcss-loader",
           },
           "sass-loader" 
+        ]
+      }, {
+        test: /\.twig$/,
+        use: [
+          'raw-loader',
+          'twig-html-loader'
         ]
       }, {
         test: /\.(png|jpg|gif|svg)$/i,

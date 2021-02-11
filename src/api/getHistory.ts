@@ -1,7 +1,8 @@
 import api from './axios';
+import { TypeItemsHistory, IGetHistory } from '../types/history';
 
-async function getHistory() {
-  let historyItems = [];
+async function getHistory(): Promise<IGetHistory> {
+  let historyItems: TypeItemsHistory[] = [];
   let error = false;
 
   await api('/actions.json')

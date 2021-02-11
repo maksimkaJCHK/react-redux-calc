@@ -1,40 +1,43 @@
 import { combineReducers } from 'redux';
-import { CALC_CHANGE_INPUT_TEXT, CALC_RESET_RESULT, CALC_RESET_TEXT_DISPLAY, CALC_RESET_DISPLAY,  CALC_CHANGE_SIGN_ACTION, CALC_CALCULATE, CALC_NULL_PROC, ADD_HISTORY_ITEMS, HISTORY_LOAD, CALCULATE_ACTION_CHANGE } from './const';
+import actionsConst from './const';
+import { IHistoryAction, IHistoryReducer } from '../types/history';
+import { ICalcAction, ICalcReducer } from '../types/calc';
 
-const CalcReducerState = {
+const CalcReducerState: ICalcReducer = {
   result: null,
   nullProc: false,
   calcText: '0',
   calcSign: null,
   calcDisplay: null,
   prevSign: '',
-  action: ''
+  action: '',
+  actionSign: null
 };
 
-const CalcReducer = (state = { ...CalcReducerState }, action) => {
+const CalcReducer = (state = { ...CalcReducerState }, action: ICalcAction): ICalcReducer => {
   switch(action.type) {
-    case CALC_CHANGE_INPUT_TEXT:
+    case actionsConst.CALC_CHANGE_INPUT_TEXT:
       return {
         ...state,
         result: null,
         nullProc: false,
         calcText: action.payload
       }
-    case CALC_RESET_RESULT:
+    case actionsConst.CALC_RESET_RESULT:
       return {
         ...state,
         calcText: '0',
         nullProc: false,
         result: null,
       }
-    case CALC_RESET_TEXT_DISPLAY:
+    case actionsConst.CALC_RESET_TEXT_DISPLAY:
       return {
         ...state,
         calcText: '0',
         nullProc: false,
         result: null,
       }
-    case CALC_RESET_DISPLAY:
+    case actionsConst.CALC_RESET_DISPLAY:
       return {
         ...state,
         calcSign: null,
@@ -43,12 +46,12 @@ const CalcReducer = (state = { ...CalcReducerState }, action) => {
         nullProc: false,
         result: null,
       }
-    case CALCULATE_ACTION_CHANGE:
+    case actionsConst.CALCULATE_ACTION_CHANGE:
       return {
         ...state,
         actionSign: action.actionSign
       }
-    case CALC_CHANGE_SIGN_ACTION:
+    case actionsConst.CALC_CHANGE_SIGN_ACTION:
       return {
         ...state,
         calcSign: action.sign,
@@ -57,7 +60,7 @@ const CalcReducer = (state = { ...CalcReducerState }, action) => {
         nullProc: false,
         result: null,
       }
-    case CALC_CALCULATE:
+    case actionsConst.CALC_CALCULATE:
       return {
         ...state,
         result: action.result,
@@ -66,7 +69,7 @@ const CalcReducer = (state = { ...CalcReducerState }, action) => {
         calcDisplay: null,
         nullProc: false,
       }
-    case CALC_NULL_PROC:
+    case actionsConst.CALC_NULL_PROC:
       return {
         ...state,
         calcText: '0',
@@ -77,9 +80,9 @@ const CalcReducer = (state = { ...CalcReducerState }, action) => {
   }
 }
 
-const HistoryReducer = (state = { load: true, error: false, items: [] }, action) => {
+const HistoryReducer = (state: IHistoryReducer = { load: true, error: false, items: [] }, action: IHistoryAction): IHistoryReducer => {
   switch(action.type) {
-    case ADD_HISTORY_ITEMS:
+    case actionsConst.ADD_HISTORY_ITEMS:
       return {
         ...state,
         items: [
@@ -89,7 +92,7 @@ const HistoryReducer = (state = { load: true, error: false, items: [] }, action)
         load: false,
         error: action.error
       }
-    case HISTORY_LOAD:
+    case actionsConst.HISTORY_LOAD:
       return {
         ...state,
         load: action.payload
@@ -103,5 +106,7 @@ const AppReducer = combineReducers({
   CalcReducer,
   HistoryReducer
 });
+
+export type TypeAppReducer = ReturnType<typeof AppReducer>;
 
 export default AppReducer;
