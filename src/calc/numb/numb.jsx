@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import numbArr from './numbArr';
-import { changeInputText } from '../../store/actions';
+import { changeInputText } from 'store/actions';
 
 const Numb = () => {
   const dispatch = useDispatch();

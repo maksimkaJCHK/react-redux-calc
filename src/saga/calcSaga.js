@@ -1,47 +1,56 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
-import { CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from '../store/const';
-import getHistory from '../api/getHistory';
-import calculate from '../calc/common/calculate';
-import setParam from '../api/setParam';
-import { addHistoryItem, historyLoad, calcFunc, calcSignChange } from '../store/actions';
+import getHistory from 'api/getHistory';
+import setParam from 'api/setParam';
+import calculate from 'calc/common/calculate';
 
-function* mixinSetParam(text, display, sign, result) {
-  let data = yield call(setParam, text, display, sign, result);
+import { CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from 'store/const';
+import { addHistoryItem, historyLoad, calcFunc, calcSignChange } from 'store/actions';
+
+function* mixinSetParam({ text, display, sign, result }) {
+  const data = yield call(setParam, { text, display, sign, result });
+
   yield put(addHistoryItem(data));
 }
 
 function* mixinCalculate(text, display, sign, error) {
   if(error) {
-    let calcVal = calculate(text, display, sign);
+    const calcVal = calculate(text, display, sign);
+
     yield put(calcFunc(calcVal));
   } else {
     yield put(historyLoad(true));
-    let calcVal = calculate(text, display, sign);
-    yield put(calcFunc(calcVal));
-    yield mixinSetParam(text, display, sign, calcVal);
+
+    const result = calculate(text, display, sign);
+
+    yield put(calcFunc(result));
+    yield mixinSetParam({ text, display, sign, result});
   }
 }
 
 function* mixinCalculateSign(text, display, sign, actionSign, error) {
   if(error) {
-    let result = calculate(text, display, sign);
+    const result = calculate(text, display, sign);
+
     yield put(calcSignChange(result, actionSign));
   } else {
     yield put(historyLoad(true));
-    let result = calculate(text, display, sign);
+
+    const result = calculate(text, display, sign);
+
     yield put(calcSignChange(result, actionSign));
-    yield mixinSetParam(text, display, sign, result);
+    yield mixinSetParam({ text, display, sign, result });
   }
 }
 
 function* loadHistory() {
-  let historyParam = yield call(getHistory);
+  const historyParam = yield call(getHistory);
+
   yield put(addHistoryItem(historyParam.historyItems, historyParam.error));
 }
 
 function* calculateS() {
-  let { result, calcText, calcDisplay, calcSign } = yield select(state => state.CalcReducer);
-  let { error } = yield select(state => state.HistoryReducer);
+  const { result, calcText, calcDisplay, calcSign } = yield select(state => state.CalcReducer);
+  const { error } = yield select(state => state.HistoryReducer);
 
   if(!result && calcSign) {
     yield mixinCalculate(calcText, calcDisplay, calcSign, error);
@@ -61,10 +70,11 @@ function* calculateSignS() {
 }
 
 function* calculateInterestS() {
-  let { calcText, calcDisplay, calcSign } = yield select(state => state.CalcReducer);
-  let { error } = yield select(state => state.HistoryReducer);
+  const { calcText, calcDisplay, calcSign } = yield select(state => state.CalcReducer);
+  const { error } = yield select(state => state.HistoryReducer);
 
-  let calcProc = (calcDisplay/100) * calcText;
+  const calcProc = (calcDisplay/100) * calcText;
+
   yield mixinCalculate(calcProc, calcDisplay, calcSign, error);
 }
 

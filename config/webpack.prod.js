@@ -1,26 +1,13 @@
-const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
-const services = require('./webpack.services.js')
-const TerserPlugin = require('terser-webpack-plugin')
+const { merge } = require('webpack-merge');
+const webpack = require('webpack');
 
-module.exports = merge(common, services, {
-  mode: 'production',
-  devtool: false,
-  optimization: {
-    minimize: true,
-    usedExports: true,
-    minimizer: [new TerserPlugin({
-      test: /\.js(\?.*)?$/i,
-      parallel: true,
-      extractComments: true,
-      terserOptions: {
-        output: {
-          comments: false,
-        },
-        compress: {
-          drop_console: true,
-        },
-      }
-    })],
-  },
-})
+const common = require('./services/webpack.common.js');
+const webpackProdConfug = require('./services/webpack.common.prod.js');
+
+const env_variables = require('./services/env_variables.js');
+
+module.exports = merge(common, webpackProdConfug, {
+  plugins: [
+    new webpack.EnvironmentPlugin(env_variables)
+  ]
+});

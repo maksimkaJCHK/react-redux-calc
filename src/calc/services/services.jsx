@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetCalcText, resetCalcDisplay, changeInputText, resetResult, nullProc, calculateInterest } from '../../store/actions';
+import { resetCalcText, resetCalcDisplay, changeInputText, resetResult, nullProc, calculateInterest } from 'store/actions';
 
 const Services = () => {
   const dispatch = useDispatch();

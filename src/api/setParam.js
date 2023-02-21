@@ -1,13 +1,13 @@
 import api from './axios';
 
-async function setParam(calcText, calcDisplay, calcSign, calcVal) {
+async function setParam({ text, display, sign, result }) {
   let buildId = `${new Date().getTime()}`;
 
   let Data = {
     'id': buildId,
     'date': buildId,
     'error': false, 
-    'action': `${calcDisplay} ${calcSign} ${calcText} = ${calcVal}`
+    'action': `${display} ${sign} ${text} = ${result}`
   }
 
   await api.post('/actions.json', Data)

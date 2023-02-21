@@ -1,26 +1,9 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import createSagaMiddleware from 'redux-saga';
-import AppReducer from './store/reducers';
-import calcSaga from './saga/calcSaga';
-import Calc from './calc/calc.jsx';
-import History from './history/history.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-const sagaMiddleware = createSagaMiddleware();
-let store = createStore(
-  AppReducer,
-  applyMiddleware(sagaMiddleware)
-);
+import App from './App';
 
-sagaMiddleware.run(calcSaga);
 const node = document.getElementById('app');
+const root = ReactDOM.createRoot(node);
 
-ReactDOM.render(
-  <Provider store = { store }>
-    <Calc />
-    <History />
-  </Provider>,
-  node
-)
+root.render(<App />);
