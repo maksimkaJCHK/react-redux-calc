@@ -1,5 +1,17 @@
 import { combineReducers } from 'redux';
-import { CALC_CHANGE_INPUT_TEXT, CALC_RESET_RESULT, CALC_RESET_TEXT_DISPLAY, CALC_RESET_DISPLAY,  CALC_CHANGE_SIGN_ACTION, CALC_CALCULATE, CALC_NULL_PROC, ADD_HISTORY_ITEMS, HISTORY_LOAD, CALCULATE_ACTION_CHANGE } from './const';
+import {
+  CALC_CHANGE_INPUT_TEXT,
+  CALC_RESET_RESULT,
+  CALC_RESET_TEXT_DISPLAY,
+  CALC_RESET_DISPLAY,
+  CALC_CHANGE_SIGN_ACTION,
+  CALC_CALCULATE,
+  CALC_NULL_PROC,
+  ADD_HISTORY_ITEMS,
+  HISTORY_LOAD,
+  CALCULATE_ACTION_CHANGE,
+  HISTORY_ERROR
+} from './const';
 
 const CalcReducerState = {
   result: null,
@@ -87,12 +99,19 @@ const HistoryReducer = (state = { load: true, error: false, items: [] }, action)
           ...state.items
         ],
         load: false,
-        error: action.error
+        error: false,
       }
     case HISTORY_LOAD:
       return {
         ...state,
-        load: action.payload
+        load: true,
+        error: false,
+      }
+    case HISTORY_ERROR:
+      return {
+        ...state,
+        load: false,
+        error: true,
       }
     default:
       return state

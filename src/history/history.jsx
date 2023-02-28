@@ -5,7 +5,7 @@ import HistoryItems from './components/historyItems.jsx';
 import './history.scss';
 
 const History = () => {
-  let { load, items, error } = useSelector(state => state.HistoryReducer);
+  const { load, items, error } = useSelector(state => state.HistoryReducer);
 
   return (
     <div className = 'history'>

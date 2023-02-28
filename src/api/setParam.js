@@ -1,9 +1,9 @@
 import api from './axios';
 
 async function setParam({ text, display, sign, result }) {
-  let buildId = `${new Date().getTime()}`;
+  const buildId = `${new Date().getTime()}`;
 
-  let Data = {
+  const Data = {
     'id': buildId,
     'date': buildId,
     'error': false, 

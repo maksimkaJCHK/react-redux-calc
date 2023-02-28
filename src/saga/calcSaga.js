@@ -4,7 +4,7 @@ import setParam from 'api/setParam';
 import calculate from 'calc/common/calculate';
 
 import { CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from 'store/const';
-import { addHistoryItem, historyLoad, calcFunc, calcSignChange } from 'store/actions';
+import { addHistoryItem, historyLoad, calcFunc, calcSignChange, historyError } from 'store/actions';
 
 function* mixinSetParam({ text, display, sign, result }) {
   const data = yield call(setParam, { text, display, sign, result });
@@ -18,7 +18,7 @@ function* mixinCalculate(text, display, sign, error) {
 
     yield put(calcFunc(calcVal));
   } else {
-    yield put(historyLoad(true));
+    yield put(historyLoad());
 
     const result = calculate(text, display, sign);
 
@@ -33,7 +33,7 @@ function* mixinCalculateSign(text, display, sign, actionSign, error) {
 
     yield put(calcSignChange(result, actionSign));
   } else {
-    yield put(historyLoad(true));
+    yield put(historyLoad());
 
     const result = calculate(text, display, sign);
 
@@ -43,9 +43,25 @@ function* mixinCalculateSign(text, display, sign, actionSign, error) {
 }
 
 function* loadHistory() {
-  const historyParam = yield call(getHistory);
+  try {
+    let historyItems = [];
+    const historyParam = yield call(getHistory);
 
-  yield put(addHistoryItem(historyParam.historyItems, historyParam.error));
+    const keysHistoryParams = Object.keys(historyParam);
+
+    keysHistoryParams.forEach((key) => {
+      historyItems = [
+        {
+          ...historyParam[key],
+        },
+        ...historyItems,
+      ];
+    });
+
+    yield put(addHistoryItem(historyItems));
+  } catch (error) {
+    yield put(historyError());
+  }
 }
 
 function* calculateS() {

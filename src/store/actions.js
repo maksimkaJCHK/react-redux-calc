@@ -1,4 +1,18 @@
-import { CALC_CHANGE_INPUT_TEXT, CALC_RESET_RESULT, CALC_RESET_TEXT_DISPLAY, CALC_RESET_DISPLAY, CALC_CHANGE_SIGN_ACTION, CALC_CALCULATE, CALC_NULL_PROC, ADD_HISTORY_ITEMS, HISTORY_LOAD, CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from './const';
+import {
+  CALC_CHANGE_INPUT_TEXT,
+  CALC_RESET_RESULT,
+  CALC_RESET_TEXT_DISPLAY,
+  CALC_RESET_DISPLAY,
+  CALC_CHANGE_SIGN_ACTION,
+  CALC_CALCULATE,
+  CALC_NULL_PROC,
+  ADD_HISTORY_ITEMS,
+  HISTORY_LOAD,
+  CALCULATE_SIGN,
+  CALCULATE_ACTION_CHANGE,
+  CALCULATE_INTEREST,
+  HISTORY_ERROR
+} from './const';
 
 export const changeInputText = (val) => {
   return {
@@ -45,21 +59,24 @@ export const nullProc = () => {
   }
 }
 
-export const addHistoryItem = (item, error = false) => {
+export const addHistoryItem = (item) => {
   return {
     type: ADD_HISTORY_ITEMS,
     payload: Array.isArray(item) ? item : [item],
-    error
   }
 }
 
-export const historyLoad = (load) => {
+export const historyLoad = () => {
   return {
     type: HISTORY_LOAD,
-    payload: load
   }
 }
 
+export const historyError= () => {
+  return {
+    type: HISTORY_ERROR,
+  }
+}
 // Для саги
 
 export const calculateSign = () => {
