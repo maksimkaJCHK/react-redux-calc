@@ -1,13 +1,29 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
-import getHistory from 'api/getHistory';
-import setParam from 'api/setParam';
-import calculate from 'calc/common/calculate';
+import getHistory from '@api/getHistory';
+import setParam from '@api/setParam';
+import calculate from '@calc/common/calculate';
 
-import { CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from 'store/const';
-import { addHistoryItem, historyLoad, calcFunc, calcSignChange, historyError } from 'store/actions';
+import { CALCULATE_SIGN, CALCULATE_ACTION_CHANGE, CALCULATE_INTEREST } from '@store/const';
+import { addHistoryItem, historyLoad, calcFunc, calcSignChange, historyError } from '@store/actions';
 
 function* mixinSetParam({ text, display, sign, result }) {
-  const data = yield call(setParam, { text, display, sign, result });
+  const buildId = `${new Date().getTime()}`;
+
+  let data = {
+    id: buildId,
+    date: buildId,
+    error: false, 
+    action: `${display} ${sign} ${text} = ${result}`
+  }
+
+  try {
+    yield call(setParam, data);
+  } catch (error) {
+    data = {
+      ...data,
+      error: true,
+    }
+  }
 
   yield put(addHistoryItem(data));
 }

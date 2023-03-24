@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import signArr from './signArr';
-import { calculateSign, calculateActionChange } from 'store/actions';
+import { calculateSign, calculateActionChange } from '@store/actions';
 
 const Sign = () => {
   const dispatch = useDispatch();

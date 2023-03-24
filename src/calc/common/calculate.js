@@ -1,7 +1,7 @@
 const calculate = (calcText, calcDisplay, calcSign) => {
   let calcVal;
 
-  if(calcText < 0 && calcSign == '-') {
+  if (calcText < 0 && calcSign == '-') {
     calcVal = eval(Number(calcDisplay) + '+' + Math.abs(Number(calcText)));
   } else {
     calcVal = eval(Number(calcDisplay) + '' + calcSign + '' + Number(calcText));

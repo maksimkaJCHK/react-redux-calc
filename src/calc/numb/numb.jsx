@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import numbArr from './numbArr';
-import { changeInputText } from 'store/actions';
+import { changeInputText } from '@store/actions';
 
 const Numb = () => {
   const dispatch = useDispatch();
@@ -22,9 +22,10 @@ const Numb = () => {
     <>
       {
         numbArr.map((el, count) => {
-          let commonClass = 'btn numb col ';
-          let addClass = (el == 0) ? 's8' : 's4';
-          let buildClass = commonClass + addClass;
+          const commonClass = 'btn numb col ';
+          const addClass = (el == 0) ? 's8' : 's4';
+          const buildClass = commonClass + addClass;
+
           return (
             <button className = { buildClass } name = { el } type = 'button' key = { count } onClick = { onChangeInputText } >
               { el }
